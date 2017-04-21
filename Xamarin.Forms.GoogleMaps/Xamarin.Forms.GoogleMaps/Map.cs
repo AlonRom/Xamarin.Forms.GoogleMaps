@@ -36,6 +36,8 @@ namespace Xamarin.Forms.GoogleMaps
 
         public static readonly BindableProperty PaddingProperty = BindableProperty.Create(nameof(PaddingProperty), typeof(Thickness), typeof(Map), default(Thickness));
 
+        public static readonly BindableProperty ClusterOptionsProperty = BindableProperty.Create(nameof(ClusterOptionsProperty), typeof(ClusterOptions), typeof(Map), default(ClusterOptions));
+
         bool _useMoveToRegisonAsInitialBounds = true;
 
         public static readonly BindableProperty CameraPositionProperty = BindableProperty.Create(
@@ -43,7 +45,8 @@ namespace Xamarin.Forms.GoogleMaps
             defaultValueCreator: (bindable) => new CameraPosition(((Map)bindable).InitialCameraUpdate.Position, 10),
             defaultBindingMode: BindingMode.TwoWay);
 
-        readonly ObservableCollection<Pin> _pins = new ObservableCollection<Pin>();
+        readonly ObservableCollection<Pin> _pins= new ObservableCollection<Pin>();
+        readonly ObservableCollection<Pin> _clusteredPins = new ObservableCollection<Pin>();
         readonly ObservableCollection<Polyline> _polylines = new ObservableCollection<Polyline>();
         readonly ObservableCollection<Polygon> _polygons = new ObservableCollection<Polygon>();
         readonly ObservableCollection<Circle> _circles = new ObservableCollection<Circle>();
@@ -69,11 +72,15 @@ namespace Xamarin.Forms.GoogleMaps
 
         internal Action<CameraUpdateMessage> OnAnimateCamera { get; set; }
 
+        internal bool PendingClusterRequest { get; set; }
+        internal Action OnCluster { get; set; }
+
         MapSpan _visibleRegion;
 
         public Map()
         {
             VerticalOptions = HorizontalOptions = LayoutOptions.FillAndExpand;
+            ClusterOptions = new ClusterOptions();
 
             _pins.CollectionChanged += PinsOnCollectionChanged;
             _polylines.CollectionChanged += PolylinesOnCollectionChanged;
@@ -106,7 +113,6 @@ namespace Xamarin.Forms.GoogleMaps
             get { return (bool)GetValue(IsTrafficEnabledProperty); }
             set { SetValue(IsTrafficEnabledProperty, value); }
         }
-
 
         public bool IsShowingUser
         {
@@ -145,9 +151,20 @@ namespace Xamarin.Forms.GoogleMaps
             set { SetValue(PaddingProperty, value); }
         }
 
+        public ClusterOptions ClusterOptions
+        {
+            get { return (ClusterOptions)GetValue(ClusterOptionsProperty); }
+            set { SetValue(ClusterOptionsProperty, value); }
+        }
+
         public IList<Pin> Pins
         {
             get { return _pins; }
+        }
+
+        public IList<Pin> ClusteredPins
+        {
+            get { return _clusteredPins; }
         }
 
         public IList<Polyline> Polylines
@@ -198,6 +215,11 @@ namespace Xamarin.Forms.GoogleMaps
         public IEnumerator<Pin> GetEnumerator()
         {
             return _pins.GetEnumerator();
+        }
+
+        public void Cluster()
+        {
+            this.SendCluster();
         }
 
         public void MoveToRegion(MapSpan mapSpan, bool animate = true)
@@ -319,6 +341,19 @@ namespace Xamarin.Forms.GoogleMaps
             var args = new MyLocationButtonClickedEventArgs();
             MyLocationButtonClicked?.Invoke(this, args);
             return args.Handled;
+        }
+
+
+        private void SendCluster()
+        {
+            if (OnCluster != null)
+            {
+                OnCluster.Invoke();
+            }
+            else
+            {
+                PendingClusterRequest = true;
+            }
         }
 
         internal void SendCameraChanged(CameraPosition position)

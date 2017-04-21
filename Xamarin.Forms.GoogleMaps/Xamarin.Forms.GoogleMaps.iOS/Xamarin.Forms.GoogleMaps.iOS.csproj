@@ -22,8 +22,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>
     </MtouchLink>
     <MtouchHttpClientHandler>
@@ -39,8 +37,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>
     </MtouchLink>
     <MtouchHttpClientHandler>
@@ -72,6 +68,9 @@
     <Reference Include="Google.Maps">
       <HintPath>$(SolutionDir)\packages\Xamarin.Google.iOS.Maps.1.13.1.0\lib\Xamarin.iOS10\Google.Maps.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMapsUtils.iOS">
+      <HintPath>external\GoogleMapsUtils.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\CameraUpdateExtensions.cs" />
@@ -97,6 +96,8 @@
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\CameraPositionExtensions.cs" />
     <Compile Include="Extensions\ThicknessExtension.cs" />
+    <Compile Include="ClusteredMarker.cs" />
+    <Compile Include="Logics\ClusterLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

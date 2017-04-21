@@ -26,6 +26,7 @@ namespace Xamarin.Forms.GoogleMaps.Android
         GoogleMap.IOnMyLocationButtonClickListener
     {
         readonly CameraLogic _cameraLogic = new CameraLogic();
+        readonly ClusterLogic _clusterLogic = new ClusterLogic();
         readonly BaseLogic<GoogleMap>[] _logics;
 
         public MapRenderer() : base()
@@ -157,6 +158,16 @@ namespace Xamarin.Forms.GoogleMaps.Android
             foreach (var logic in _logics)
             {
                 logic.Register(_oldNativeMap, _oldMap, NativeMap, Map);
+            }
+
+
+            _clusterLogic.Register(_oldNativeMap, _oldMap, NativeMap, Map);
+            _clusterLogic.RestoreItems();
+            _clusterLogic.OnMapPropertyChanged(new PropertyChangedEventArgs(Map.SelectedPinProperty.PropertyName));
+
+            if (this.Map.PendingClusterRequest)
+            {
+                this._clusterLogic.HandleClusterRequest();
             }
 
             _ready = true;

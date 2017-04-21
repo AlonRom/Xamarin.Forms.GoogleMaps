@@ -11,6 +11,7 @@ namespace XFGoogleMapSample
             buttonBasicMap.Clicked += (_, e) => Navigation.PushAsync(new BasicMapPage());
             buttonCamera.Clicked += (_, e) => Navigation.PushAsync(new CameraPage());
             buttonPins.Clicked += (_, e) => Navigation.PushAsync(new PinsPage());
+            buttonCluster.Clicked += (_, e) => Navigation.PushAsync(new ClusterPage());
             buttonShapes.Clicked += (_, e) => Navigation.PushAsync(new ShapesPage());
             buttonTiles.Clicked += (_, e) => Navigation.PushAsync(new TilesPage());
             buttonCustomPins.Clicked += (_, e) => Navigation.PushAsync(new CustomPinsPage());

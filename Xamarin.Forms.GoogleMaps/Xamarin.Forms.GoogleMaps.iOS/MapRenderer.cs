@@ -10,6 +10,7 @@ using UIKit;
 
 using GCameraUpdate = Google.Maps.CameraUpdate;
 using GCameraPosition = Google.Maps.CameraPosition;
+using GMCluster;
 
 namespace Xamarin.Forms.GoogleMaps.iOS
 {
@@ -32,6 +33,7 @@ namespace Xamarin.Forms.GoogleMaps.iOS
                 new PolygonLogic(),
                 new CircleLogic(),
                 new PinLogic(),
+                new ClusterLogic(),
                 new TileLayerLogic(),
                 new GroundOverlayLogic()
             };
@@ -163,7 +165,7 @@ namespace Xamarin.Forms.GoogleMaps.iOS
                 UpdateIsTrafficEnabled();
             }
             else if (e.PropertyName == VisualElement.HeightProperty.PropertyName &&
-                     ((Map) Element).InitialCameraUpdate != null)
+                     ((Map)Element).InitialCameraUpdate != null)
             {
                 _shouldUpdateRegion = true;
             }
