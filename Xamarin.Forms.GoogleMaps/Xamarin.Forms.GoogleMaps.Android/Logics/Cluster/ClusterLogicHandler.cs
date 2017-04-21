@@ -44,12 +44,6 @@ namespace Xamarin.Forms.GoogleMaps.Logics.Android
                 return false;
             }
 
-
-            if (targetPin != null && !ReferenceEquals(targetPin, this._map.SelectedPin))
-            {
-                this._map.SelectedPin = targetPin;
-            }
-
             return false;
         }
 

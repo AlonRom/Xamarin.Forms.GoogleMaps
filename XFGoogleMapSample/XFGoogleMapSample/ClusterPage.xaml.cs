@@ -8,7 +8,7 @@ namespace XFGoogleMapSample
 {
     public partial class ClusterPage : ContentPage
     {
-        private const int ClusterItemsCount = 500;// 10000;
+        private const int ClusterItemsCount = 50;// 10000;
         private const double Extent = 0.2;
         private Position _currentPosition = new Position(31.768319, 35.213710);
         private readonly Random _random = new Random();
@@ -25,12 +25,20 @@ namespace XFGoogleMapSample
                 var lng = this._currentPosition.Longitude + Extent * GetRandomNumber(-1.0, 1.0);
 
                 this.Map.ClusteredPins.Add(new Pin()
+{
+	Position = new Position(lat, lng),
+                    Label = $"Item {i}",
+                    Icon = BitmapDescriptorFactory.FromBundle("pin_red.png")
+                });
+                this.Map.Pins.Add(new Pin()
                 {
                     Position = new Position(lat, lng),
                     Label = $"Item {i}",
                     Icon = BitmapDescriptorFactory.FromBundle("pin_red.png")
                 });
             }
+
+
 
             //this.Map.ClusterOptions.SetRenderUsingImage(BitmapDescriptorFactory.FromBundle("image01.png"));
 
