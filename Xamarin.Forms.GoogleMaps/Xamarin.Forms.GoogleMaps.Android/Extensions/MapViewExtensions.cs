@@ -10,32 +10,13 @@ namespace Xamarin.Forms.GoogleMaps.Android.Extensions
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal static Task<GoogleMap> GetGoogleMapAsync(this MapView self)
         {
-            try
-            {
-                var googleMap = GetMap(self);
-
-                if (googleMap != null)
-                {
-                    return Task.FromResult(googleMap);
-                }
-            }
-            catch (MissingMethodException)
-            {
-            }
-
-            var comp = new TaskCompletionSource<GoogleMap>();
-            self.GetMapAsync(new OnMapReadyCallback(map =>
-            {
-                comp.SetResult(map);
-            }));
-
-            return comp.Task;
+            return self.GetGoogleMapAsync();
         }
 
         static GoogleMap GetMap(MapView mapView)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            return mapView.Map;
+            return mapView.GetGoogleMapAsync().GetAwaiter().GetResult();
 #pragma warning restore CS0618 // Type or member is obsolete
         }
    }

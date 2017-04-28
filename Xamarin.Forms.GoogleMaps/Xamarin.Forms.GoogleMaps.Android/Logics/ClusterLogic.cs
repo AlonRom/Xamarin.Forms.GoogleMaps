@@ -62,7 +62,7 @@ namespace Xamarin.Forms.GoogleMaps.Logics.Android
 
                 this.NativeMap.SetOnCameraChangeListener(this._clusterManager);
                 this.NativeMap.SetOnMarkerClickListener(this._clusterManager);
-                this.NativeMap.SetOnInfoWindowClickListener(this._clusterManager);
+                //this.NativeMap.SetOnInfoWindowClickListener(this._clusterManager);
 
                 this._clusterManager.SetRenderer(new XamarinClusterRenderer(Xamarin.Forms.Forms.Context, this.Map, this.NativeMap, this._clusterManager));
 
@@ -79,7 +79,7 @@ namespace Xamarin.Forms.GoogleMaps.Logics.Android
             {
                 this.NativeMap.SetOnCameraChangeListener(null);
                 this.NativeMap.SetOnMarkerClickListener(null);
-                this.NativeMap.SetOnInfoWindowClickListener(null);
+                //this.NativeMap.SetOnInfoWindowClickListener(null);
 
                 this._clusterHandler.Dispose();
                 this._clusterManager.Dispose();

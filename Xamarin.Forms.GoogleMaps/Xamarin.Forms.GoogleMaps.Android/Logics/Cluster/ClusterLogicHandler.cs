@@ -26,23 +26,23 @@ namespace Xamarin.Forms.GoogleMaps.Logics.Android
 
         public bool OnClusterClick(ICluster cluster)
         {
-            Toast.MakeText(XForms.Context, string.Format("{0} items in cluster", cluster.Items.Count), ToastLength.Short).Show();
+            //Toast.MakeText(XForms.Context, string.Format("{0} items in cluster", cluster.Items.Count), ToastLength.Short).Show();
             return false;
         }
 
         public bool OnClusterItemClick(Java.Lang.Object nativeItemObj)
         {
-            var nativeItem = nativeItemObj as ClusteredMarker;
+            //var nativeItem = nativeItemObj as ClusteredMarker;
 
             // lookup pin
-            var targetPin = this._logic.LookupPin(nativeItem);
+            //var targetPin = this._logic.LookupPin(nativeItem);
 
-            // If set to PinClickedEventArgs.Handled = true in app codes,
-            // then all pin selection controlling by app.
-            if (this._map.SendPinClicked(targetPin))
-            {
-                return false;
-            }
+            //// If set to PinClickedEventArgs.Handled = true in app codes,
+            //// then all pin selection controlling by app.
+            //if (this._map.SendPinClicked(targetPin))
+            //{
+            //    return false;
+            //}
 
             return false;
         }
